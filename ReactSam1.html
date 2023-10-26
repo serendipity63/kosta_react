@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="mydiv"></div>
+    <script type="text/babel">
+        //이건 component
+        function Hello() {
+            return <h1>Hello React!</h1>
+        }
+        // 객체랑 class는 자바랑 좀 다르다
+        // class와 찍어낸 객체 둘다 class라고 한다
+        //객체 안에 메소드를 넣을 수 있다
+        //클래스를 function처럼 쓸 수도 있고..
+        // var let const
+        // react is component of javascript
+
+
+        const container = document.getElementById('mydiv');
+        // mydiv를 container로 지정
+        const root = ReactDOM.createRoot(container);
+        root.render(<Hello />)
+    </script>
+
+</body>
+
+</html>
