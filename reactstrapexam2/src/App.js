@@ -17,7 +17,7 @@ import SweetalertConfirm from './SweetalertConfirm';
 function App() {
   return (
     <div className="App">
-      {/* <InputGroupStrap /> */}
+      <InputGroupStrap />
       {/* <ListGroupStrap /> */}
       {/* <ModalStrap /> */}
       {/* <ModalStrap2 /> */}
@@ -30,7 +30,7 @@ function App() {
       {/* <TooltipStrap /> */}
       {/* <Sweetalert2Basic /> */}
       {/* <SweetalertPosition /> */}
-      <SweetalertConfirm />
+      {/* <SweetalertConfirm /> */}
     </div>
   );
 }
