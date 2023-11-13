@@ -3,7 +3,14 @@ import { Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const MakeAccount = () => {
+const Join = () => {
+    const initUser = {
+        id: "",
+        name: "",
+        password: "",
+        email: "",
+        address: "",
+    };
     const formStyle = {
         width: "500px",
         margin: "20px auto",
@@ -11,31 +18,26 @@ const MakeAccount = () => {
         padding: "30px",
         borderRadius: "7px",
     };
-    const [acc, setAcc] = useState({
+    const [user, setUser] = useState({
         id: "",
         name: "",
-        balance: 0,
-        type: "normal",
-        grade: "",
+        password: "",
+        email: "",
+        address: "",
     });
 
     const changeInput = (e) => {
-        setAcc({ ...acc, [e.target.name]: e.target.value });
+        setUser({ ...user, [e.target.name]: e.target.value });
     };
 
     const submit = (e) => {
         e.preventDefault();
-        let sacc = { ...acc };
-        if (sacc.type === "normal") {
-            sacc.grade = "";
-        }
-        console.log(sacc);
-
         axios
-            .post("http://localhost:8090/makeaccount", sacc)
+            .post("http://localhost:8090/join", user)
             .then((res) => {
                 console.log(res);
                 Swal.fire(res.data);
+                setUser(initUser);
             })
             .catch((err) => {
                 console.log(err);
@@ -45,11 +47,11 @@ const MakeAccount = () => {
 
     return (
         <Form style={formStyle}>
-            <h4 style={{ textAlign: "center" }}>계좌개설</h4>
+            <h4 style={{ textAlign: "center" }}>회원가입</h4>
             <br />
             <FormGroup row>
                 <Label for="id" sm={3}>
-                    계좌번호
+                    아이디
                 </Label>
                 <Col sm={9}>
                     <Input
@@ -57,6 +59,7 @@ const MakeAccount = () => {
                         name="id"
                         id="id"
                         onChange={changeInput}
+                        value={user.id}
                     />
                 </Col>
             </FormGroup>
@@ -70,66 +73,50 @@ const MakeAccount = () => {
                         name="name"
                         id="name"
                         onChange={changeInput}
+                        value={user.name}
                     />
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label for="balance" sm={3}>
-                    입금액
+                <Label for="password" sm={3}>
+                    비밀번호
                 </Label>
                 <Col sm={9}>
                     <Input
                         type="text"
-                        name="balance"
-                        id="balance"
+                        name="password"
+                        id="password"
                         onChange={changeInput}
+                        value={user.password}
                     />
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label for="type" sm={3} check>
-                    계좌종류
-                </Label>
-                <Col sm={4}>
-                    <Input
-                        type="radio"
-                        name="type"
-                        id="type"
-                        value="normal"
-                        onChange={changeInput}
-                        checked={acc.type == "normal"}
-                    />
-                    {" 일반계좌 "}
-                </Col>
-                <Col sm={5}>
-                    <Input
-                        type="radio"
-                        name="type"
-                        id="type"
-                        value="special"
-                        onChange={changeInput}
-                    />
-                    {" 특수계좌 "}
-                </Col>
-            </FormGroup>
-            <FormGroup row>
-                <Label for="grade" sm={3}>
-                    등급
+                <Label for="email" sm={3}>
+                    이메일
                 </Label>
                 <Col sm={9}>
                     <Input
-                        type="select"
-                        name="grade"
-                        id="grade"
+                        type="text"
+                        name="email"
+                        id="email"
                         onChange={changeInput}
-                        disabled={acc.type == "normal"}
-                    >
-                        <option>선택하세요</option>
-                        <option>VIP</option>
-                        <option>Gold</option>
-                        <option>Silver</option>
-                        <option>Normal</option>
-                    </Input>
+                        value={user.email}
+                    />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="address" sm={3}>
+                    주소
+                </Label>
+                <Col sm={9}>
+                    <Input
+                        type="text"
+                        name="address"
+                        id="address"
+                        onChange={changeInput}
+                        value={user.address}
+                    />
                 </Col>
             </FormGroup>
             <FormGroup row>
@@ -139,7 +126,7 @@ const MakeAccount = () => {
                         style={{ width: "100%" }}
                         onClick={submit}
                     >
-                        계좌개설
+                        회원가입
                     </Button>
                 </Col>
             </FormGroup>
@@ -147,4 +134,4 @@ const MakeAccount = () => {
     );
 };
 
-export default MakeAccount;
+export default Join;
