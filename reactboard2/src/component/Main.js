@@ -1,29 +1,17 @@
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-} from "reactstrap";
-import { useState } from "react";
+import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink,} from 'reactstrap';
+import {useState} from 'react';
 
 const Main = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
-    };
-    return (
+    }    
+    return(
         <div>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/" className="mr-auto">
-                    <i>
-                        <b>kosta.com</b>
-                    </i>
-                </NavbarBrand>
-                <NavbarToggler onClick={toggle} className="mr-auto" />
-                <Collapse isOpen={isOpen} navbar className="mr-auto">
+                <NavbarBrand href="/" className='mr-auto'><i><b>kosta.com</b></i></NavbarBrand>
+                <NavbarToggler onClick={toggle} className='mr-auto'/>
+                <Collapse isOpen={isOpen} navbar className="mr-auto"  >
                     <Nav navbar>
                         <NavItem>
                             <NavLink href="/login">로그인</NavLink>
@@ -38,7 +26,7 @@ const Main = () => {
                 </Collapse>
             </Navbar>
         </div>
-    );
-};
+    )
+}
 
 export default Main;

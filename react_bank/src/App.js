@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MakeAccount from "./component/MakeAccount";
 import AccountInfo from "./component/AccountInfo";
 import Deposit from "./component/Deposit";
@@ -10,18 +10,17 @@ import Login from "./component/Login";
 import Logout from "./component/Logout";
 import Join from "./component/Join";
 import BankTop from "./component/BankTop";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import store from "./persist-store";
 
-const persister = persistStore(store);
+export const persistor = persistStore(store);
 function App() {
     return (
         <div className="App">
             <Provider store={store}>
-                <PersistGate persistor={persister}>
+                <PersistGate persistor={persistor}>
                     <BrowserRouter>
                         <BankTop />
                         <Routes>

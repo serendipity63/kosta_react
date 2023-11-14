@@ -1,6 +1,21 @@
 import { Table, Input, Button, Label } from "reactstrap";
-
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 const DetailForm = () => {
+    const [detail, setDetail] = useState({});
+    const [num, setNum] = useState("");
+    const [page, setPage] = useState("");
+    useEffect(() => {
+        axios
+            .get("http://localhost:8090/boarddetail")
+            .then((res) => {
+                setDetail([...res.data]);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
     return (
         <>
             <h5 style={{ textAlign: "center", margin: "20px auto" }}>

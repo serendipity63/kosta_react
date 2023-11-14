@@ -1,18 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; //localStorage에 저장
+import storage from "redux-persist/lib/storage/session"; //localStorage에 저장
 // import storageSession from "redux-persist/lib/storage/session"; //SessionStorage에 저장
 //왜? redux의 storage 페이지를 새로고침하면 state이 사라짐
 // npm install --save redux-persist
 // npm install --save @reduxjs/toolkit
 
-export const initialState = {
-    id: "",
-    name: "",
-    password: "",
-    email: "",
-    address: "",
-};
 const reducer = (currentState, action) => {
     if (currentState === undefined) {
         return {
@@ -23,8 +16,8 @@ const reducer = (currentState, action) => {
             address: "",
         };
     }
-    const newState = { ...currentState };
     console.log(action);
+    const newState = { ...currentState };
     switch (action.type) {
         case "ID":
             // return { ...currentState, id: action.payload };
@@ -66,7 +59,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 const store = configureStore({
-    reducer: { persistedReducer },
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false,

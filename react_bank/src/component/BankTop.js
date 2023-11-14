@@ -13,13 +13,15 @@ import {
     DropdownItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { UseSelector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
 const BankTop = () => {
     const [open, setOpen] = useState(false);
     const toggle = () => {
         setOpen(!open);
     };
-    const userId = useSelector((state) => state.id);
+    const user = useSelector((state) => state.persistedReducer);
+    console.log(user);
     return (
         <div>
             <Navbar color="light" light expand="md">
@@ -31,9 +33,9 @@ const BankTop = () => {
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={open} navbar>
                     <Nav navbar className="ml-auto">
-                        <NavItem>{userId}</NavItem>
+                        <NavItem>{user.id}</NavItem>
                         <NavItem>
-                            {userId === "" ? (
+                            {user === undefined || user.id === "" ? (
                                 <NavLink href="/login">로그인</NavLink>
                             ) : (
                                 <NavLink href="/logout">로그아웃</NavLink>

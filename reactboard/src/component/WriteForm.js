@@ -1,83 +1,113 @@
-import { useState } from "react";
-import { Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Table, Input, Button, Label } from "reactstrap";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const WriteForm = () => {
-    const formStyle = {
-        width: "700px",
-        height: "700px",
-        textAlign: "left",
-        margin: "auto",
-        border: "1px solid lightgray",
-        padding: "20px",
-        borderRadius: "20px",
+    const [board, setBoard] = useState({ title: "", content: "", userId: "" });
+    const [file, setFile] = useState();
+    const change = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setBoard({ [name]: value });
     };
-    const changeInput = (e) => {};
+    const fileChange = (e) => {
+        console.log(e);
+        setFile(e.target.files[0]);
+    };
+    const submit = (e) => {};
+
     return (
-        <div>
-            <h4 style={{ textAlign: "center", marginTop: "100px" }}>
+        <>
+            <h5 style={{ textAlign: "center", margin: "20px auto" }}>
                 게시판글등록
-            </h4>
-            <br />
-            <Form style={formStyle}>
-                <FormGroup row>
-                    <Label for="writer" sm={3}>
-                        글쓴이
-                    </Label>
-                    <Col sm={9}>
-                        <Input
-                            type="text"
-                            name="writer"
-                            id="writer"
-                            onChange={changeInput}
-                        />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="subject" sm={3}>
-                        제목
-                    </Label>
-                    <Col sm={9}>
-                        <Input
-                            type="text"
-                            name="subject"
-                            id="subject"
-                            onChange={changeInput}
-                        />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="contents" sm={3}>
-                        내용
-                    </Label>
-                    <Col sm={9}>
-                        <Input
-                            type="textarea"
-                            rows="17"
-                            name="text"
-                            id="contents"
-                            onChange={changeInput}
-                        />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="image" sm={3}>
-                        이미지파일 첨부
-                    </Label>
-                    <Col sm={9}>
-                        <Input type="file" name="file" id="image" />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="button" sm={3}>
-                        &nbsp;
-                    </Label>
-                    <Col sm={9}>
-                        <Button color="primary">등록</Button> &nbsp;
-                        <Button color="primary">다시쓰기</Button>
-                    </Col>
-                </FormGroup>
-            </Form>
-        </div>
+            </h5>
+            <div
+                style={{
+                    margin: "0 auto",
+                    width: "600px",
+                    border: "1px solid lightgray",
+                    borderRadius: "7px",
+                    padding: "10px",
+                }}
+            >
+                <Table borderless>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <Label for="writer">글쓴이</Label>
+                            </td>
+                            <td>
+                                <Input
+                                    type="text"
+                                    name="userId"
+                                    onChange={change}
+                                    id="writer"
+                                    required="required"
+                                    value={board.userId}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Label for="subject">제 목</Label>
+                            </td>
+                            <td>
+                                <Input
+                                    name="subject"
+                                    type="text"
+                                    onChange={change}
+                                    id="subject"
+                                    required="required"
+                                    value={board.title}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Label for="content">내 용</Label>
+                            </td>
+                            <td>
+                                <Input
+                                    type="textarea"
+                                    id="content"
+                                    name="content"
+                                    onChange={change}
+                                    cols="40"
+                                    rows="15"
+                                    required="required"
+                                    value={board.content}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Label for="file"> 이미지 파일 첨부 </Label>
+                            </td>
+                            <td>
+                                <Input
+                                    name="file"
+                                    type="file"
+                                    id="file"
+                                    accept="image/*"
+                                    onChange={fileChange}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <Button color="primary" onClick={submit}>
+                                    등록
+                                </Button>
+                                &nbsp;&nbsp;
+                                <Button color="primary">다시쓰기</Button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
+        </>
     );
 };
+
 export default WriteForm;
