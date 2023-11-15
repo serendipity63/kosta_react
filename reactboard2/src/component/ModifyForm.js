@@ -1,14 +1,14 @@
 import { Table, Input, Button, Label } from "reactstrap";
 import { useState, useRef } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
-const WriteForm = () => {
+import { useParams, useNavigate } from "react-router-dom";
+const ModifyForm = () => {
     const [board, setBoard] = useState({
         subject: "",
         content: "",
         writer: "",
     });
+    const { num } = useParams();
     const [file, setFile] = useState();
     const imgBoxRef = useRef();
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ const WriteForm = () => {
         formData.append("file", file);
 
         axios
-            .post("http://localhost:8090/boardwrite", formData)
+            .post(`http://localhost:8090/boardmodify/${num}`, formData)
             .then((res) => {
                 console.log(res);
                 let boardNum = res.data; //일부러 이렇게 쓰기도 한다
@@ -52,7 +52,7 @@ const WriteForm = () => {
     return (
         <>
             <h5 style={{ textAlign: "center", margin: "20px auto" }}>
-                게시판글등록
+                게시판글수정
             </h5>
             <div
                 style={{
@@ -124,9 +124,6 @@ const WriteForm = () => {
                                     id="image-box"
                                     alt=""
                                     ref={imgBoxRef}
-                                    onClick={() =>
-                                        document.getElementById("file").click()
-                                    }
                                 />
                                 <br />
                                 <br />
@@ -137,7 +134,6 @@ const WriteForm = () => {
                                     id="file"
                                     accept="image/*"
                                     onChange={fileChange}
-                                    hidden
                                 />
                             </td>
                         </tr>
@@ -158,4 +154,4 @@ const WriteForm = () => {
     );
 };
 
-export default WriteForm;
+export default ModifyForm;

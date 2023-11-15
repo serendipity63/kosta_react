@@ -1,21 +1,36 @@
 import { Table, Input, Button, Label } from "reactstrap";
-import { Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 const DetailForm = () => {
-    const [detail, setDetail] = useState({});
-    const [num, setNum] = useState("");
-    const [page, setPage] = useState("");
+    const { num } = useParams();
+    const [board, setBoard] = useState({
+        num: null,
+        subject: "",
+        content: "",
+        writedate: "",
+        fileurl: "",
+        writer: "",
+        viewcount: null,
+        likecount: null,
+    });
+    const navigate = useNavigate();
     useEffect(() => {
         axios
-            .get("http://localhost:8090/boarddetail")
+            .get(`http://localhost:8090/boarddetail/${num}`)
             .then((res) => {
-                setDetail([...res.data]);
+                console.log(res);
+                setBoard(res.data);
             })
             .catch((err) => {
                 console.log(err);
             });
     }, []);
+
+    const boardModify = (boardNum) => {
+        navigate(`/modifyform/${boardNum}`);
+    };
+
     return (
         <>
             <h5 style={{ textAlign: "center", margin: "20px auto" }}>
@@ -41,6 +56,8 @@ const DetailForm = () => {
                                     type="text"
                                     name="writer"
                                     id="writer"
+                                    disabled
+                                    value={board.writer}
                                     required="required"
                                 />
                             </td>
@@ -54,7 +71,8 @@ const DetailForm = () => {
                                     name="subject"
                                     type="text"
                                     id="subject"
-                                    required="required"
+                                    disabled
+                                    value={board.subject}
                                 />
                             </td>
                         </tr>
@@ -67,9 +85,10 @@ const DetailForm = () => {
                                     type="textarea"
                                     id="content"
                                     name="content"
+                                    disabled
                                     cols="40"
                                     rows="15"
-                                    required="required"
+                                    value={board.content}
                                 />
                             </td>
                         </tr>
@@ -78,13 +97,25 @@ const DetailForm = () => {
                                 <Label for="file">이미지</Label>
                             </td>
                             <td>
-                                <img src="cat.jpg" alt="" />
+                                {board.fileurl && (
+                                    <img
+                                        src={`http://localhost:8090/img/${board.fileurl}`}
+                                        width={"200px"}
+                                        height={"150px"}
+                                        alt="이미지 불러오기 실패"
+                                    />
+                                )}
                             </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
-                                <Button color="primary">수정</Button>
+                                <Button
+                                    color="primary"
+                                    onClick={() => boardModify(board.num)}
+                                >
+                                    수정
+                                </Button>
                                 &nbsp;&nbsp;
                                 <Button color="primary" tag="a" href="/">
                                     게시판목록

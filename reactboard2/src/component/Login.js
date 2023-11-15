@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { useCookies } from "react-cookie";
+// import { useDispatch } from "react-redux";
+// import { useCookies } from "react-cookie";
 import axios from "axios";
 
 const Login = () => {
@@ -15,8 +15,8 @@ const Login = () => {
     };
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
-    const [cookie, setCookie] = useCookies(["refreshToken"]);
-    const dispatch = useDispatch();
+    // const [cookie, setCookie] = useCookies(["refreshToken"]);
+    // const dispatch = useDispatch();
 
     const submit = (e) => {};
 
