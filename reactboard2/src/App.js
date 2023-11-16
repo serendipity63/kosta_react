@@ -24,7 +24,7 @@ function App() {
             <Routes>
                 <Route exect path="/" element={<Login />} />
                 <Route exect path="/join" element={<Join />} />
-                <Route exect path="/list/:page" element={<BoardList />} />
+                <Route exect path="/list" element={<BoardList />} />
                 <Route exect path="/writeform" element={<WriteForm />} />
                 <Route exect path="/detailform/:num" element={<DetailForm />} />
                 <Route exect path="/modifyform/:num" element={<ModifyForm />} />

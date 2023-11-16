@@ -9,7 +9,8 @@ const WriteForm = () => {
         content: "",
         writer: "",
     });
-    const [file, setFile] = useState();
+    //배열을 추가했다
+    const [files, setFiles] = useState([]);
     const imgBoxRef = useRef();
     const navigate = useNavigate();
     const change = (e) => {
@@ -19,10 +20,13 @@ const WriteForm = () => {
     };
     const fileChange = (e) => {
         console.log(e);
-        setFile(e.target.files[0]);
-
-        const imageSrc = URL.createObjectURL(e.target.files[0]);
-        imgBoxRef.current.src = imageSrc;
+        if (e.target.files.length > 0) {
+            setFiles([...files, e.target.files[0]]);
+        } //취소를 하면 에러 나는거 수정
+        //선택된 파일이 있을 경우에만
+        //배열로 만들었다
+        // const imageSrc = URL.createObjectURL(e.target.files[0]);
+        // imgBoxRef.current.src = imageSrc;
     };
     // const imgClick = () => {
     //     fileChange(fileRef.current);
@@ -35,8 +39,11 @@ const WriteForm = () => {
         formData.append("subject", board.subject);
         formData.append("content", board.content);
         formData.append("writer", board.writer);
-        formData.append("file", file);
-
+        // formData.append("file", files);
+        for (let file of files) {
+            formData.append("file", file);
+        }
+        console.log(files);
         axios
             .post("http://localhost:8090/boardwrite", formData)
             .then((res) => {
@@ -118,9 +125,9 @@ const WriteForm = () => {
                             </td>
                             <td>
                                 <img
-                                    src="noimage.jpg"
-                                    width="150px"
-                                    height="150px"
+                                    src="add.png"
+                                    width="50px"
+                                    height="50px"
                                     id="image-box"
                                     alt=""
                                     ref={imgBoxRef}
@@ -139,6 +146,27 @@ const WriteForm = () => {
                                     onChange={fileChange}
                                     hidden
                                 />
+
+                                {files.length !== 0 &&
+                                    files.map((file, index) => (
+                                        <span key={index}>
+                                            <img
+                                                src={URL.createObjectURL(file)}
+                                                width="100px"
+                                                height="100px"
+                                                alt=""
+                                                style={{ marginRight: "10px" }}
+                                            />
+                                            {(index + 1) % 3 === 0 ? (
+                                                <>
+                                                    <br />
+                                                    <br />
+                                                </>
+                                            ) : (
+                                                ""
+                                            )}
+                                        </span>
+                                    ))}
                             </td>
                         </tr>
                         <tr>

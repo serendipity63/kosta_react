@@ -14,13 +14,18 @@ const DetailForm = () => {
         viewcount: null,
         likecount: null,
     });
+    const [images, setImages] = useState([]);
+    const [heart, setHeart] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
         axios
             .get(`http://localhost:8090/boarddetail/${num}`)
             .then((res) => {
                 console.log(res);
-                setBoard(res.data);
+                setBoard(res.data.board);
+                let fileurl = res.data.board.fileurl;
+                let filenums = fileurl.split(",");
+                setImages([...filenums]);
             })
             .catch((err) => {
                 console.log(err);
@@ -97,19 +102,30 @@ const DetailForm = () => {
                                 <Label for="file">이미지</Label>
                             </td>
                             <td>
-                                {board.fileurl && (
-                                    <img
-                                        src={`http://localhost:8090/img/${board.fileurl}`}
-                                        width={"200px"}
-                                        height={"150px"}
-                                        alt="이미지 불러오기 실패"
-                                    />
-                                )}
+                                {images.length !== 0 &&
+                                    images.map((num) => (
+                                        <img
+                                            key={num}
+                                            src={`http://localhost:8090/img/${num}`}
+                                            width={"120px"}
+                                            height={"100px"}
+                                            alt="이미지 불러오기 실패"
+                                            style={{ marginRight: "10px" }}
+                                        />
+                                    ))}
                             </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
+                                <img
+                                    src={heart ? "/unlike.png" : "/like.png"}
+                                    alt=""
+                                    width={"20px"}
+                                />
+                                &nbsp;
+                                {board.likecount}
+                                &nbsp;
                                 <Button
                                     color="primary"
                                     onClick={() => boardModify(board.num)}
@@ -117,7 +133,7 @@ const DetailForm = () => {
                                     수정
                                 </Button>
                                 &nbsp;&nbsp;
-                                <Button color="primary" tag="a" href="/">
+                                <Button color="primary" tag="a" href="/list">
                                     게시판목록
                                 </Button>
                             </td>

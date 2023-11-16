@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const BoardList = () => {
-    const { page } = useParams();
+    // const { page } = useParams();
     const [boards, setBoards] = useState([]);
     const [pageBtn, setPageBtn] = useState([]);
     const [pageInfo, setPageInfo] = useState({});
@@ -22,10 +22,10 @@ const BoardList = () => {
     const [isSearch, setIsSearch] = useState(false);
 
     useEffect(() => {
-        reqBoardList(page);
+        reqBoardList(1);
     }, []);
     const reqBoardList = (repage) => {
-        if (!repage) repage = 1;
+        // if (!repage) repage = 1;
         axios
             .get(`http://localhost:8090/boardlist/${repage}`)
             .then((res) => {

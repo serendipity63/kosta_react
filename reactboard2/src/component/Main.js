@@ -32,7 +32,7 @@ const Main = () => {
                             <NavLink href="/join">회원가입</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/list/1">게시판</NavLink>
+                            <NavLink href="/list">게시판</NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
