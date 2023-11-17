@@ -15,7 +15,7 @@ const DetailForm = () => {
         likecount: null,
     });
     const [images, setImages] = useState([]);
-    const [heart, setHeart] = useState([]);
+    const [heart, setHeart] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         axios
@@ -26,6 +26,7 @@ const DetailForm = () => {
                 let fileurl = res.data.board.fileurl;
                 let filenums = fileurl.split(",");
                 setImages([...filenums]);
+                setHeart(res.data.heart);
             })
             .catch((err) => {
                 console.log(err);

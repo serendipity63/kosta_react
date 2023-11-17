@@ -18,8 +18,8 @@ const ModifyForm = () => {
             .get(`http://localhost:8090/boarddetail/${num}`)
             .then((res) => {
                 console.log(res);
-                setBoard(res.data);
-                let fileurl = res.data.fileurl; //1,2,3
+                setBoard(res.data.board);
+                let fileurl = res.data.board.fileurl; //1,2,3
                 let filenums = fileurl.split(","); //[1,2,3] 배열로 만든다
                 let filearr = []; //[{type: 'i',data : 1},{type: 'i', data : 1},{type: 'i',data : 3}] 객체 배열로 만든다 i for image
                 for (let filenum of filenums) {
