@@ -15,7 +15,7 @@ const ModifyForm = () => {
     let selectImg = null;
     useEffect(() => {
         axios
-            .get(`http://localhost:8090/boarddetail/${num}`)
+            .get(`http://localhost:8090/boarddetail/before-modify/${num}`)
             .then((res) => {
                 console.log(res);
                 setBoard(res.data.board);
@@ -89,7 +89,7 @@ const ModifyForm = () => {
             .then((res) => {
                 console.log(res);
                 let boardNum = res.data; //일부러 이렇게 쓰기도 한다
-                navigate(`/detailform/${boardNum}`);
+                navigate(`/detailform/after-modify/${boardNum}`);
             })
             .catch((err) => {
                 console.log(err);
@@ -232,7 +232,7 @@ const ModifyForm = () => {
                             <td></td>
                             <td>
                                 <Button color="primary" onClick={submit}>
-                                    등록
+                                    수정
                                 </Button>
                                 &nbsp;&nbsp;
                             </td>

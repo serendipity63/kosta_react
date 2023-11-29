@@ -15,25 +15,25 @@ import ModifyForm from "./component/ModifyForm";
 
 // export const persistor = persistStore(store);
 function App() {
-    return (
-        <div className="App">
-            {/* <Provider store={store}> */}
-            {/* <PersistGate persistor={persistor}>
+  return (
+    <div className="App">
+      {/* <Provider store={store}> */}
+      {/* <PersistGate persistor={persistor}>
                     <BrowserRouter> */}
-            <Main />
-            <Routes>
-                <Route exect path="/" element={<Login />} />
-                <Route exect path="/join" element={<Join />} />
-                <Route exect path="/list" element={<BoardList />} />
-                <Route exect path="/writeform" element={<WriteForm />} />
-                <Route exect path="/detailform/:num" element={<DetailForm />} />
-                <Route exect path="/modifyform/:num" element={<ModifyForm />} />
-            </Routes>
-            {/* </BrowserRouter>
+      <Main />
+      <Routes>
+        <Route exect path="/" element={<Login />} />
+        <Route exect path="/join" element={<Join />} />
+        <Route exect path="/list" element={<BoardList />} />
+        <Route exect path="/writeform" element={<WriteForm />} />
+        <Route exect path="/detailform/:sect/:num" element={<DetailForm />} />
+        <Route exect path="/modifyform/:num" element={<ModifyForm />} />
+      </Routes>
+      {/* </BrowserRouter>
                 </PersistGate> */}
-            {/* </Provider> */}
-        </div>
-    );
+      {/* </Provider> */}
+    </div>
+  );
 }
 
 export default App;

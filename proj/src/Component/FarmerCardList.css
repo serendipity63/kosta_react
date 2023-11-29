@@ -1,0 +1,6 @@
+.farmer-card-grid {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4개의 칼럼을 가진 그리드 */
+    gap: 20px;
+}

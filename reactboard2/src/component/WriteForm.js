@@ -47,9 +47,10 @@ const WriteForm = () => {
         axios
             .post("http://localhost:8090/boardwrite", formData)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 let boardNum = res.data; //일부러 이렇게 쓰기도 한다
-                navigate(`/detailform/${boardNum}`);
+                console.log(boardNum);
+                navigate(`/detailform/before-modify/${boardNum}`);
             })
             .catch((err) => {
                 console.log(err);

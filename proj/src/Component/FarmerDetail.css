@@ -1,0 +1,15 @@
+.farmer-detail {
+    width: 1250px;
+    height: 1300px;
+    border: 5px solid #75786c;
+    border-radius: 10px;
+    flex-shrink: 0;
+    background: #fefcf4;
+}
+.farminfo {
+    width: 1140px;
+    height: 500px;
+    width: 1140px;
+    flex-shrink: 0;
+    background: #e2e4d4;
+}

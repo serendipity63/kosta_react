@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 const DetailForm = () => {
-    const { num } = useParams();
+    const { sect, num } = useParams();
     const [board, setBoard] = useState({
         num: null,
         subject: "",
@@ -19,13 +19,15 @@ const DetailForm = () => {
     const navigate = useNavigate();
     useEffect(() => {
         axios
-            .get(`http://localhost:8090/boarddetail/${num}`)
+            .get(`http://localhost:8090/boarddetail/${sect}/${num}`)
             .then((res) => {
                 console.log(res);
                 setBoard(res.data.board);
                 let fileurl = res.data.board.fileurl;
-                let filenums = fileurl.split(",");
-                setImages([...filenums]);
+                if (fileurl != null && fileurl !== "") {
+                    let filenums = fileurl.split(",");
+                    setImages([...filenums]);
+                }
                 setHeart(res.data.heart);
             })
             .catch((err) => {
@@ -36,7 +38,13 @@ const DetailForm = () => {
     const boardModify = (boardNum) => {
         navigate(`/modifyform/${boardNum}`);
     };
-
+    const selectBoard = (e) => {
+        axios.get(`http://localhost:8090/boardlike/${num}`).then((res) => {
+            console.log(res.data);
+            setBoard({ ...board, likecount: res.data.likeCount });
+            setHeart(res.data.isSelect);
+        });
+    };
     return (
         <>
             <h5 style={{ textAlign: "center", margin: "20px auto" }}>
@@ -120,9 +128,10 @@ const DetailForm = () => {
                             <td></td>
                             <td>
                                 <img
-                                    src={heart ? "/unlike.png" : "/like.png"}
+                                    src={heart ? "/like.png" : "/unlike.png"}
                                     alt=""
                                     width={"20px"}
+                                    onClick={selectBoard}
                                 />
                                 &nbsp;
                                 {board.likecount}
